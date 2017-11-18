@@ -297,16 +297,16 @@ class SwarmSpawner(Spawner):
                         username=self.service_owner)
 
                 if 'driver_config' in m:
-                	if 'device' in m['driver_config']['options']:
-	                    device = m['driver_config']['options']['device'].format(
-	                        username=self.service_owner
-	                    )
-	                    m['driver_config']['options']['device'] = device
-	                    
-	                if 'share' in m['driver_config']['options']:
+                    if 'device' in m['driver_config']['options']:
+                        device = m['driver_config']['options']['device'].format(
+                            username=self.service_owner
+                        )
+                        m['driver_config']['options']['device'] = device
+                        
+                    if 'share' in m['driver_config']['options']:
                         share = m['driver_config']['options']['share'].format(
-						    username=self.service_owner
-						)
+                            username=self.service_owner
+                        )
                         m['driver_config']['options']['share'] = share
                         
                     m['driver_config'] = docker.types.DriverConfig(
