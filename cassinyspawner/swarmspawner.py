@@ -305,7 +305,8 @@ class SwarmSpawner(Spawner):
                         
                     if 'share' in m['driver_config']['options']:
                         share = m['driver_config']['options']['share'].format(
-                            username=self.service_owner
+                            username=self.service_owner,
+                            exam_name=self.user.exam
                         )
                         m['driver_config']['options']['share'] = share
                         
