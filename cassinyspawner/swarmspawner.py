@@ -294,7 +294,9 @@ class SwarmSpawner(Spawner):
 
                 if 'source' in m:
                     m['source'] = m['source'].format(
-                        username=self.service_owner)
+                        username=self.service_owner,
+                        exam_name=self.user.exam
+                    )
 
                 if 'driver_config' in m:
                     if 'device' in m['driver_config']['options']:
