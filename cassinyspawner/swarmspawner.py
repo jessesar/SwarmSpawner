@@ -63,6 +63,9 @@ class SwarmSpawner(Spawner):
             cls._client = client
         return cls._client
 
+    task_node_id = Unicode()
+    task_node_hostname = Unicode()
+
     service_id = Unicode()
     service_port = Int(8888, min=1, max=65535, config=True)
     service_image = Unicode("jupyterhub/singleuser", config=True)
@@ -221,11 +224,6 @@ class SwarmSpawner(Spawner):
         running_task = None
         for task in tasks:
             task_state = task['Status']['State']
-            
-            self.log.info(
-                "TASK: %s", task
-            )
-            
             self.log.debug(
                 "Task %s of Docker service %s status: %s",
                 task['ID'][:7],
@@ -235,6 +233,15 @@ class SwarmSpawner(Spawner):
             if task_state == 'running':
                 # there should be at most one running task
                 running_task = task
+                
+                self.task_node_id = task['NodeID']
+                
+                node = yield self.docker(
+                    'inspect_node', self.task_node_id
+                )
+                
+                if node:
+                    self.task_node_hostname = node['Description']['Hostname']
 
         if running_task is not None:
             return None
@@ -248,11 +255,6 @@ class SwarmSpawner(Spawner):
             service = yield self.docker(
                 'inspect_service', self.service_name
             )
-            
-            self.log.info(
-                "SERVICE: %s", service
-            )
-            
             self.service_id = service['ID']
         except APIError as err:
             if err.response.status_code == 404:
