@@ -221,6 +221,11 @@ class SwarmSpawner(Spawner):
         running_task = None
         for task in tasks:
             task_state = task['Status']['State']
+            
+            self.log.info(
+                "TASK: %s", task
+            )
+            
             self.log.debug(
                 "Task %s of Docker service %s status: %s",
                 task['ID'][:7],
