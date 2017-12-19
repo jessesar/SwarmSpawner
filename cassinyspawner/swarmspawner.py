@@ -248,6 +248,11 @@ class SwarmSpawner(Spawner):
             service = yield self.docker(
                 'inspect_service', self.service_name
             )
+            
+            self.log.info(
+                "SERVICE: %s", service
+            )
+            
             self.service_id = service['ID']
         except APIError as err:
             if err.response.status_code == 404:
