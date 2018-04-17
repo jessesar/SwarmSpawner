@@ -1,4 +1,3 @@
-# Copyright (c) Cassiny.io OÜ.
 
 import re
 from setuptools import setup, find_packages
@@ -19,12 +18,10 @@ long_description = open('README.rst').read()
 
 
 setup(
-    name='swarmspawner',
-    version=version,
+    name='uva-swarmspawner',
+    version='1.1',
     long_description=long_description,
-    description="""
-                SwarmSpawner: A spawner for JupyterHub that uses Docker Swarm's services
-                """,
+    description="""UvA-versie van: SwarmSpawner: A spawner for JupyterHub that uses Docker Swarm's services""",
     url='https://github.com/cassinyio/SwarmSpawner',
     # Author details
     author='Christian Barra',
@@ -44,4 +41,5 @@ setup(
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
     install_requires=requirements,
     extras_require={},
+    include_package_data=True
 )
